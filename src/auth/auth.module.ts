@@ -9,6 +9,8 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
+import { Otp, OtpSchema } from 'src/schemas/otp.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { PassportModule } from '@nestjs/passport';
       secret: <string>process.env.JWT_SECRET,
       signOptions: { expiresIn: '8h' },
     }),
+    MongooseModule.forFeature([{ name: Otp.name, schema: OtpSchema }]),
   ],
   controllers: [AuthController],
   providers: [
